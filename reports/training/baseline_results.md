@@ -107,3 +107,12 @@ Validation artifacts:
 - Ultralytics 8.4.163
 - NVIDIA GeForce RTX 3050 6GB Laptop GPU
 - CUDA available: True
+## Cross-video distribution analysis
+
+The train/validation split is video-level: video_01 is used for training and video_02 for validation. Measured differences include:
+- Brightness: mean pixel value 38.95 (train) vs 114.75 (validation).
+- Image geometry: train images are 1080x1920 portrait; validation images are 1920x1080 landscape.
+- Object scale: median normalized box area is 0.01868 (train) vs 0.13674 (validation), about 7.3x larger in validation.
+- Class-specific scale: smoke median box area is 0.01547 (train) vs 0.11692 (validation); fire is 0.02150 vs 0.20509.
+
+These measurements indicate substantial cross-video distribution shift. Therefore, the poor validation metrics should be interpreted as a cross-video generalization result rather than solely as an optimization or annotation-quality issue. The verified annotations remain the source of truth.
