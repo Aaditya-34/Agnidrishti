@@ -45,3 +45,10 @@ data/dataset/*
 
 # Secrets
 .env
+
+
+# Keep M2 Label Studio candidate exports
+!data/annotations/
+!data/annotations/candidates/
+!data/annotations/candidates/labelstudio/
+!data/annotations/candidates/labelstudio/video_01_annotations.json
