@@ -1,55 +1,37 @@
 # Agnidrishti
 
-AI-powered smoke and fire detection and visualization system for the hackathon.
+AI-based video fire and smoke detection system.
 
-## Project Identity
+## 1. Project Overview
 
-- **Project name:** Agnidrishti
-- **Target problem:** Smoke and fire detection in video
-- **Camera:** Fixed angle
-- **Target classes:**
-  - `0 = smoke`
-  - `1 = fire`
+Agnidrishti is a computer-vision system designed to detect smoke and fire in video and provide localized detections with confidence scores.
 
-## Team
+The system is being developed as part of the KSIT ElectroHack 4.0 challenge.
 
-| Member | Role | Hardware |
-|---|---|---|
-| M1 | Dataset Lead + Integration | Normal laptop |
-| M2 | GPU/ML Pipeline | NVIDIA GPU laptop |
-| M3 | Video/Data Engineer | Normal laptop |
-| M4 | Annotation/QA Engineer | Normal laptop |
+## 2. Detection Classes
 
-## Current Raw Data
+| Class ID | Class Name |
+|---|---|
+| 0 | smoke |
+| 1 | fire |
 
-The project currently has two source MP4 videos:
-
-- Video 1: approximately 274 MB / approximately 3 minutes
-- Video 2: approximately 65 MB / approximately 2 minutes
-
-Exact video metadata such as resolution, FPS, frame count, codec and bitrate will be recorded after inspection.
-
-## Phase 1 Goal
-
-Create a reproducible, validated, training-ready object-detection dataset for smoke and fire.
-
-High-level pipeline:
+## 3. Main Pipeline
 
 ```text
-Raw Videos
+Input Video
     ↓
-Video Inspection
+Video Processing
     ↓
-Smart Frame / Event Sampling
+Frame Sampling
     ↓
-Near-Duplicate Reduction
+Object Detection
     ↓
-Annotation Assistance
+Smoke / Fire Detection
     ↓
-Human Verification
+Bounding Boxes + Confidence
     ↓
-Dataset QA
+Temporal Stabilization / Tracking
     ↓
-Video/Temporal-Aware Split
+Processed Video
     ↓
-YOLO Training Dataset
+Detection Statistics

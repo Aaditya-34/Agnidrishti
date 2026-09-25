@@ -2,78 +2,36 @@
 
 ## 1. Purpose
 
-This document allows all four team members to work from the same project context and workflow without depending on one person's ChatGPT memory.
+This document defines the responsibilities, working boundaries, and handoff requirements for the four team members.
 
-The repository and its documented decisions are the project's source of truth.
+The goal is to allow each member to work independently while keeping the project integrated.
 
----
+## 2. Team Structure
 
-# 2. Team Allocation
+| Member | Role | Main Responsibility |
+|---|---|---|
+| M1 | Integration / Dataset Lead | Integration, documentation, dataset coordination |
+| M2 | GPU / ML Pipeline | GPU setup, ML pipeline, model experiments |
+| M3 | Video / Data Engineering | Video analysis, frame sampling, data preparation |
+| M4 | Annotation / QA | Annotation, verification, dataset quality |
 
-| Member | Role | Hardware | Primary Responsibility |
-|---|---|---|---|
-| **M1 — You** | Dataset Lead + Integration | Normal laptop | Dataset architecture, integration, QC, decisions |
-| **M2** | GPU/ML Pipeline | NVIDIA GPU laptop | Grounding DINO, GPU setup, later model training |
-| **M3** | Video/Data Engineer | Normal laptop | Video inspection, frame extraction, data pipeline |
-| **M4** | Annotation/QA Engineer | Normal laptop | Annotation, verification and label QA |
+## 3. M1 — Integration / Dataset Lead
 
----
-
-# 3. M1 — Dataset Lead + Integration
-
-## Main Responsibility
-
-M1 is responsible for making sure that the outputs from M2, M3 and M4 become one consistent dataset and codebase.
-
-## Tasks
+### Responsibilities
 
 - Maintain repository structure.
 - Maintain project documentation.
-- Maintain the technical decision log.
-- Define and approve the dataset split.
-- Check for temporal/data leakage.
-- Integrate M2/M3/M4 outputs.
-- Maintain dataset statistics and manifests.
-- Perform final Phase 1 quality control.
-- Ensure organizer test videos never enter development/training.
+- Coordinate dataset preparation.
+- Integrate outputs from other team members.
+- Maintain Git branches.
+- Track project decisions.
+- Coordinate between dataset, ML, video, and annotation work.
+- Ensure organizer test data remains separated.
 
-## M1 Should NOT Become the Bottleneck
-
-You do not need to manually perform every annotation or every preprocessing operation.
-
-Your main job is integration and technical control.
-
----
-
-# 4. M2 — GPU/ML Pipeline
-
-## Hardware
-
-NVIDIA GPU laptop.
-
-## Main Responsibility
-
-Use the GPU where it provides a real advantage.
-
-## Phase 1 Tasks
-
-1. Set up the CUDA/PyTorch environment.
-2. Verify GPU availability.
-3. Set up Grounding DINO if selected.
-4. Test smoke/fire candidate detection.
-5. Build a reproducible candidate-generation script.
-6. Save candidate annotations in a format that M4 can review.
-7. Record GPU memory use and inference behavior.
-
-## Pipeline
+### Expected Outputs
 
 ```text
-Frames from M3
-       ↓
-Grounding DINO
-       ↓
-Candidate boxes
-       ↓
-M4 human verification
-       ↓
-Final annotations
+docs/
+Dataset_Protocol/
+README.md
+Team_Handoff/

@@ -16,7 +16,7 @@ Representative frames were extracted from both source videos using a fixed 2-sec
 
 A 10-second temporal preview was first used to identify major visual/event segments.
 
-Based on that inspection, a 2-second sampling interval was selected for the first-pass representative frame set. This provides denser coverage around the observed smoke and fire events than the initial 10-second preview.
+Based on that inspection, a 2-second sampling interval was selected for the first-pass representative frame set. This is not the final dataset sampling strategy and will be reviewed after annotation and QA.
 
 ## Frame Naming
 
@@ -44,7 +44,7 @@ The frame manifest is stored at:
 
 The extracted frame files are excluded from Git because they are generated dataset artifacts.
 
-## Phase 1 Scope
+## Phase 1 Status
 
 - No model training was performed.
 - No model inference was performed.
