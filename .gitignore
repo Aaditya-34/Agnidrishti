@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 venv/
 env/
+.venv-m2/
 
 # IDE
 .vscode/
@@ -44,3 +45,5 @@ data/dataset/*
 
 # Secrets
 .env
+
+data/metadata/temporal_preview/
