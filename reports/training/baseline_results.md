@@ -137,3 +137,28 @@ The augmentation experiment increased precision and slightly increased mAP50-95 
 
 Artifact:
 - runs/detect/runs/detect/yolov8n_960_aug/weights/best.pt
+
+## Final Mixed-Video Experiment
+
+Experimental mixed split:
+- Train: 130 images (76 video_01, 54 video_02)
+- Validation: 34 images (20 video_01, 14 video_02)
+- Random seed: 42
+
+YOLOv8n, 960px, 50 epochs:
+- Mixed validation Precision: 0.718
+- Recall: 0.592
+- mAP50: 0.644
+- mAP50-95: 0.408
+
+Evaluation on the original official video_02 validation set:
+- 68 images, 84 instances
+- Precision: 0.466
+- Recall: 0.591
+- mAP50: 0.561
+- mAP50-95: 0.289
+
+The official video_01-to-video_02 experiment remains the pure cross-video evaluation. The mixed experiment is reported separately because video_02 was included in training.
+
+Selected M2 checkpoint:
+runs/detect/runs/detect/yolov8n_960_mixed/weights/best.pt
