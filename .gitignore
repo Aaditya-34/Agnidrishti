@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 venv/
 env/
+.venv-m2/
 
 # IDE
 .vscode/
