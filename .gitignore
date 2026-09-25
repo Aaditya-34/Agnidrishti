@@ -44,3 +44,5 @@ data/dataset/*
 
 # Secrets
 .env
+
+data/metadata/temporal_preview/
