@@ -116,3 +116,24 @@ The train/validation split is video-level: video_01 is used for training and vid
 - Class-specific scale: smoke median box area is 0.01547 (train) vs 0.11692 (validation); fire is 0.02150 vs 0.20509.
 
 These measurements indicate substantial cross-video distribution shift. Therefore, the poor validation metrics should be interpreted as a cross-video generalization result rather than solely as an optimization or annotation-quality issue. The verified annotations remain the source of truth.
+
+## YOLOv8n 960 augmentation experiment
+
+Configuration:
+- Architecture: YOLOv8n
+- Image size: 960
+- Epochs: 50
+- Batch size: 4
+- Augmentation: horizontal flip 0.5, rotation 10 degrees, translation 0.1, scale 0.5, HSV augmentation (h=0.015, s=0.7, v=0.4)
+- Validation split: video_02
+
+Results:
+- Precision: 0.1800
+- Recall: 0.0500
+- mAP50: 0.0177
+- mAP50-95: 0.00389
+
+The augmentation experiment increased precision and slightly increased mAP50-95 relative to the YOLOv8n 960 baseline, but reduced recall and mAP50. Therefore, it is not a clear overall improvement on the current cross-video validation split.
+
+Artifact:
+- runs/detect/runs/detect/yolov8n_960_aug/weights/best.pt
