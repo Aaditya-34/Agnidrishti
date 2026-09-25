@@ -47,3 +47,13 @@ data/dataset/*
 .env
 
 data/metadata/temporal_preview/
+
+# Backend runtime artifacts
+backend/storage/uploads/*
+backend/storage/outputs/*
+
+!backend/storage/uploads/.gitkeep
+!backend/storage/outputs/.gitkeep
+
+# Local dataset archives
+data/*.zip
