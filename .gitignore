@@ -59,3 +59,5 @@ data/agnidrishti_final_yolo_dataset.zip
 data/data.yaml
 runs/
 check_dataset.py
+
+data/experimental_mixed/
