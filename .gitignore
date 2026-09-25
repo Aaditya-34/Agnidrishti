@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large data
+data/raw/*
+data/frames/*
+data/annotations/*
+data/dataset/*
+
+!data/raw/.gitkeep
+!data/frames/.gitkeep
+!data/annotations/candidates/.gitkeep
+!data/annotations/verified/.gitkeep
+!data/dataset/images/train/.gitkeep
+!data/dataset/images/val/.gitkeep
+!data/dataset/labels/train/.gitkeep
+!data/dataset/labels/val/.gitkeep
+
+# Models / generated outputs
+*.pt
+*.pth
+*.onnx
+*.engine
+*.ckpt
+*.weights
+*.mp4
+*.avi
+*.mov
+
+# Secrets
+.env
