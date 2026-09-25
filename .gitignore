@@ -46,3 +46,4 @@ data/dataset/*
 .env
 
 data/metadata/temporal_preview/
+data/inference/
