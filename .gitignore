@@ -61,3 +61,18 @@ backend/storage/outputs/*
 data/*.zip
 
 backend/storage/jobs.json
+
+
+
+
+
+# Local M2 training datasets
+data/images/
+data/labels/
+data/experimental_mixed/
+
+# Local M2 experiment outputs
+runs/detect/*
+
+# Local M2 dataset config
+data/data.yaml
