@@ -46,12 +46,12 @@ data/dataset/*
 # Secrets
 .env
 
-
 # Keep M2 Label Studio candidate exports
 !data/annotations/
 !data/annotations/candidates/
 !data/annotations/candidates/labelstudio/
 !data/annotations/candidates/labelstudio/video_01_annotations.json
+
 # M2 local/generated dataset and training artifacts
 data/images/
 data/labels/
@@ -59,5 +59,20 @@ data/agnidrishti_final_yolo_dataset.zip
 data/data.yaml
 runs/
 check_dataset.py
-
 data/experimental_mixed/
+
+# M3 inference artifacts
+data/metadata/temporal_preview/
+data/inference/
+
+# Backend runtime artifacts
+backend/storage/uploads/*
+backend/storage/outputs/*
+
+!backend/storage/uploads/.gitkeep
+!backend/storage/outputs/.gitkeep
+
+# Local dataset archives
+data/*.zip
+
+backend/storage/jobs.json
