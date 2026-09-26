@@ -62,7 +62,6 @@ def process_job(job_id: str) -> None:
 
 @router.post("", response_model=Job)
 async def upload_video(
-    background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
 ):
     if file.content_type not in ALLOWED_VIDEO_TYPES:
@@ -79,14 +78,48 @@ async def upload_video(
         while chunk := await file.read(1024 * 1024):
             buffer.write(chunk)
 
+    return get_job(job.job_id)
+
+
+@router.post("/{job_id}/execute", response_model=Job)
+def execute_job(
+    job_id: str,
+    background_tasks: BackgroundTasks,
+):
+    job = get_job(job_id)
+
+    if job is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Job not found.",
+        )
+
+    if job.status != JobStatus.UPLOADED:
+        raise HTTPException(
+            status_code=409,
+            detail=f"Job cannot be executed from status '{job.status}'.",
+        )
+
+    if not Path(job.input_path).exists():
+        raise HTTPException(
+            status_code=404,
+            detail="Uploaded video file not found.",
+        )
+
+    if not MODEL_PATH.exists():
+        raise HTTPException(
+            status_code=500,
+            detail=f"Model file not found: {MODEL_PATH}",
+        )
+
     update_job(
-        job.job_id,
+        job_id,
         status=JobStatus.QUEUED,
     )
 
-    background_tasks.add_task(process_job, job.job_id)
+    background_tasks.add_task(process_job, job_id)
 
-    return get_job(job.job_id)
+    return get_job(job_id)
 
 
 @router.get("/{job_id}/output")
