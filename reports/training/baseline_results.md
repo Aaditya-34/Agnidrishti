@@ -1,4 +1,4 @@
-ï»¿# Agnidrishti â€” YOLOv8 Baseline Results
+# Agnidrishti — YOLOv8 Baseline Results
 
 ## Dataset
 
@@ -15,7 +15,7 @@
 
 ## Baseline Experiments
 
-### YOLOv8n â€” 640px
+### YOLOv8n — 640px
 
 Validation:
 - Precision: 0.00401
@@ -29,7 +29,7 @@ Training-split evaluation:
 - mAP50: 0.00712
 - mAP50-95: 0.00200
 
-### YOLOv8n â€” 960px
+### YOLOv8n — 960px
 
 Best training epoch: 38
 
@@ -55,7 +55,7 @@ Per-class validation:
 - Smoke: Precision 0.127, Recall 0.0714, mAP50 0.0296, mAP50-95 0.00572
 - Fire: Precision 0.0641, Recall 0.143, mAP50 0.0158, mAP50-95 0.00163
 
-### YOLOv8s â€” 960px
+### YOLOv8s — 960px
 
 Validation evaluation of best.pt:
 - Precision: 0.53307
@@ -162,3 +162,71 @@ The official video_01-to-video_02 experiment remains the pure cross-video evalua
 
 Selected M2 checkpoint:
 runs/detect/runs/detect/yolov8n_960_mixed/weights/best.pt
+
+## Controlled YOLOv8 Model Sweep — Mixed-Video Split
+
+To compare model capacity under a common experimental protocol, YOLOv8n, YOLOv8s, and YOLOv8m were trained on the same mixed-video split for 50 epochs at 960px. YOLOv8l was additionally screened for 20 epochs because of its substantially higher computational cost on the available RTX 3050 6GB GPU.
+
+Experimental split:
+- Train: 130 images (76 video_01, 54 video_02)
+- Validation: 34 images (20 video_01, 14 video_02)
+- Random seed: 42
+- Image size: 960px
+- Device: NVIDIA GeForce RTX 3050 6GB
+- Classes: smoke, fire
+
+### Model comparison
+
+| Model | Epochs | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| YOLOv8n | 50 | 0.718 | 0.592 | 0.644 | 0.408 |
+| YOLOv8s | 50 | 0.729 | 0.526 | 0.586 | 0.380 |
+| YOLOv8m | 50 | 0.558 | 0.490 | 0.553 | 0.310 |
+| YOLOv8l | 20 screening | 0.503 | 0.385 | 0.402 | 0.169 |
+
+### YOLOv8s — 960px mixed
+
+Per-class validation:
+- Smoke: Precision 0.617, Recall 0.446, mAP50 0.511, mAP50-95 0.303
+- Fire: Precision 0.841, Recall 0.607, mAP50 0.661, mAP50-95 0.457
+
+Artifact:
+- runs/detect/runs/detect/yolov8s_960_mixed/weights/best.pt
+
+### YOLOv8m — 960px mixed
+
+Per-class validation:
+- Smoke: Precision 0.518, Recall 0.408, mAP50 0.449, mAP50-95 0.231
+- Fire: Precision 0.597, Recall 0.571, mAP50 0.657, mAP50-95 0.388
+
+Artifact:
+- runs/detect/runs/detect/yolov8m_960_mixed/weights/best.pt
+
+### YOLOv8l — 960px mixed screening
+
+This was a 20-epoch screening experiment rather than a full 50-epoch comparison.
+
+Per-class validation:
+- Smoke: Precision 0.369, Recall 0.169, mAP50 0.185, mAP50-95 0.0711
+- Fire: Precision 0.636, Recall 0.600, mAP50 0.619, mAP50-95 0.266
+
+Artifact:
+- runs/detect/runs/detect/yolov8l_960_mixed-2/weights/best.pt
+
+An additional 5-epoch v8l run was performed only as an early-training check and is not used for model comparison.
+
+### Model-selection observation
+
+Under the controlled 50-epoch mixed-video experiments, YOLOv8n produced the highest mAP50 (0.644), highest mAP50-95 (0.408), and highest recall (0.592) among the 50-epoch YOLOv8n/s/m runs. YOLOv8s had slightly higher precision (0.729 versus 0.718), but lower recall and lower mAP values.
+
+YOLOv8l was only a 20-epoch screening run and therefore is not treated as directly equivalent to the 50-epoch experiments.
+
+Based on the completed experiments, the selected Phase 2 checkpoint remains:
+
+- Architecture: YOLOv8n
+- Image size: 960px
+- Training: 50 epochs
+- Dataset: experimental mixed-video split
+- Checkpoint: runs/detect/runs/detect/yolov8n_960_mixed/weights/best.pt
+
+The selection is based on the measured validation results from the experiments performed on this dataset and configuration, rather than model size alone.
