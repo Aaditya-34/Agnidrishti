@@ -31,18 +31,43 @@ def process_job(job_id: str) -> None:
     update_job(
         job_id,
         status=JobStatus.PROCESSING,
+        total_frames=0,
+        processed_frames=0,
+        progress=0,
+        error=None,
     )
 
     output_path = OUTPUT_DIR / f"{job_id}_output.mp4"
     statistics_path = OUTPUT_DIR / f"{job_id}_statistics.json"
+
+    def handle_progress(
+        processed_frames: int,
+        total_frames: int,
+    ) -> None:
+        if total_frames > 0:
+            progress = int(
+                (processed_frames / total_frames) * 100
+            )
+        else:
+            progress = 0
+
+        progress = max(0, min(100, progress))
+
+        update_job(
+            job_id,
+            processed_frames=processed_frames,
+            total_frames=total_frames,
+            progress=progress,
+        )
 
     result = process_video(
         input_video=job.input_path,
         model_path=str(MODEL_PATH),
         output_video=str(output_path),
         statistics_file=str(statistics_path),
-        confidence_threshold=0.50,
+        confidence_threshold=0.35,
         detector_type="yolo",
+        progress_callback=handle_progress,
     )
 
     if result.status == "completed":
@@ -51,6 +76,9 @@ def process_job(job_id: str) -> None:
             status=JobStatus.COMPLETED,
             output_path=result.output_video,
             statistics_path=result.statistics_file,
+            processed_frames=result.processed_frames,
+            total_frames=result.total_frames,
+            progress=100,
         )
     else:
         update_job(
@@ -115,6 +143,10 @@ def execute_job(
     update_job(
         job_id,
         status=JobStatus.QUEUED,
+        total_frames=0,
+        processed_frames=0,
+        progress=0,
+        error=None,
     )
 
     background_tasks.add_task(process_job, job_id)

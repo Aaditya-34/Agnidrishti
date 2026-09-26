@@ -9,6 +9,7 @@ UPLOAD_DIR = Path("backend/storage/uploads")
 OUTPUT_DIR = Path("backend/storage/outputs")
 JOBS_FILE = Path("backend/storage/jobs.json")
 
+
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -53,6 +54,9 @@ def create_job(filename: str) -> Job:
         filename=filename,
         status=JobStatus.UPLOADED,
         input_path=str(input_path),
+        total_frames=0,
+        processed_frames=0,
+        progress=0,
     )
 
     jobs[job_id] = job
@@ -72,6 +76,7 @@ def update_job(job_id: str, **changes) -> Job | None:
         return None
 
     updated_job = job.model_copy(update=changes)
+
     jobs[job_id] = updated_job
     _save_jobs(jobs)
 

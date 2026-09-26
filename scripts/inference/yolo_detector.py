@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import List
 
-
 import numpy as np
 from ultralytics import YOLO
 
@@ -12,7 +11,11 @@ from .detector import Detector
 class YOLODetector(Detector):
     """Ultralytics YOLO implementation of the model-agnostic Detector interface."""
 
-    def __init__(self, model_path: str, confidence_threshold: float = 0.25):
+    def __init__(
+        self,
+        model_path: str,
+        confidence_threshold: float = 0.25,
+    ):
         self.model_path = Path(model_path)
         self.confidence_threshold = confidence_threshold
 
@@ -26,7 +29,9 @@ class YOLODetector(Detector):
     def detect(self, frame: np.ndarray) -> List[Detection]:
         results = self.model.predict(
             source=frame,
+            imgsz=960,
             conf=self.confidence_threshold,
+            device=0,
             verbose=False,
         )
 
